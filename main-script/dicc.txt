@@ -1,4 +1,4 @@
-result.txt
+.result.txt
 !.gitignore
 !.htaccess
 !.htpasswd
