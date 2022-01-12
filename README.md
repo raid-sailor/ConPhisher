@@ -23,13 +23,3 @@ This is an example of how to list things you need to use the software and how to
   ```sh
   brew install python3
   ```
-* PIP 
-  ```sh
-  curl -O https://bootstrap.pypa.io/get-pip.py && python get-pip.py
-  ```
-
-### Installation
-
-You will also need to grab an API key for the urlscan.
-
-1. Get a free API Key at [urlscan.io](https://urlscan.io/user/profile/)
