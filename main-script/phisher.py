@@ -15,32 +15,31 @@ from pyfiglet import *
 
 phishing_url = sys.argv[1] 
 Art=text2art( "") 
-urlscan_api = os.environ.get('URLSCAN_API_KEY')
-netcraft_api = os.environ.get('PHISHING_API_EMAIL')
 custom_fig = Figlet(font='graffiti')
 author =  Figlet(font='graceful')
-version = "Version: V1"
 
-# urlscan.io API details. This is to get the JSON results from a website scan 
+try:
+    netcraft_api = sys.argv[2] 
+except IndexError:
+    netcraft_api = 'null'
 
-def urlscan(): 
-    
-    headers = {'API-Key':urlscan_api,'Content-Type':'application/json'}
-    data = {"url": phishing_url, "visibility": "unlisted"}
-    response = requests.post('https://urlscan.io/api/v1/scan/',headers=headers, data=json.dumps(data))
-    response_json = response.json()['uuid']
-    print("\nCheck a screenshot for malicious content at this link: https://urlscan.io/screenshots/" + str(response_json) + ".png")
 def netcraft_post():
-    r = requests.post('https://report.netcraft.com/api/v3/test/report/urls', json={
-    "email": netcraft_api,
-    "urls": [{ "url": phishing_url, "country": "GB" }],
-        })
-    print(Fore.BLUE + "Netcraft" + Style.RESET_ALL)
-    print( "\n Reported to Netcraft as an malicious url with ID: " + r.json()['uuid'])
+
+    if netcraft_api != 'null': 
+
+        r = requests.post('https://report.netcraft.com/api/v3/test/report/urls', json={
+        "email": netcraft_api,
+        "urls": [{ "url": phishing_url, "country": "GB" }],
+            })
+        print(Fore.BLUE + "Netcraft" + Style.RESET_ALL)
+        print( "\nReported to Netcraft as an malicious url with ID: " + r.json()['uuid'])
+
+    else:
+        print( "\nUnable to report to Netcraft due to no email address being provided")
     
 def enumeration(): 
-    print(Fore.BLUE + "Target Enumeration" + Style.RESET_ALL)
-    os.system('gobuster dir -q -u' + phishing_url + '/ -w dicc.txt -r')
+    print(Fore.BLUE + "Target Enumeration\n" + Style.RESET_ALL)
+    os.system('gobuster dir -q -u' + phishing_url + '/ -w wordlist.txt -r')
 
 def whois_ip():
     domain = whois.query(phishing_url)
@@ -61,8 +60,7 @@ while True:
     os.system('cls' if os.name == 'nt' else 'clear')
     print(Fore.CYAN + custom_fig.renderText("ConPhisher") + Style.RESET_ALL)
     print(Fore.CYAN + ("👉 github.com/raid-sailor") + Style.RESET_ALL)
-    urlscan()
-    menu_input = input("\nWould you like to continue to (yes/no): ") 
+    menu_input = input("\nThis will report the site for a takedown with Netcraft. Do you want to continue? ") 
 
     if menu_input == "Yes" or menu_input == "yes": 
         os.system('cls' if os.name == 'nt' else 'clear')
