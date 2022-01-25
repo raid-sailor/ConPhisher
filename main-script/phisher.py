@@ -12,7 +12,6 @@ from cymruwhois import Client
 from pyfiglet import *
 
 
-
 phishing_url = sys.argv[1] 
 Art=text2art( "") 
 custom_fig = Figlet(font='graffiti')
@@ -47,12 +46,9 @@ def whois_ip():
     c = Client()
     r = c.lookup(domainip)
     print(Fore.BLUE + "Site Information" + Style.RESET_ALL)
-    print("\nDomain name: " + domain.name)
-    print("Creation date: " + str(domain.creation_date))
-    print("Registrant: " + domain.registrant)
-    print("IP Address: " + domainip)
     print("ASN: " + r.asn)
     print("ASN Owner: " + r.owner)
+    print("Host IP: " + r.ip)
  
 
 while True: 
