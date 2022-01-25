@@ -29,9 +29,9 @@ This is an example of how to list things you need to use the software and how to
   ```
 * Gobuster Mac OS 
   ```sh
-  brew install python3
+  brew install gobuster
   ```
 * Gobuster Debian
   ```sh
-  sudo apt-get install python3
+  sudo apt-get install gobuster
   ```
