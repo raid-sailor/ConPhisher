@@ -41,7 +41,6 @@ def enumeration():
     os.system('gobuster dir -q -u' + phishing_url + '/ -w wordlist.txt -r')
 
 def whois_ip():
-    domain = whois.query(phishing_url)
     domainip = socket.gethostbyname(phishing_url)
     c = Client()
     r = c.lookup(domainip)
