@@ -35,3 +35,9 @@ This is an example of how to list things you need to use the software and how to
   ```sh
   sudo apt-get install gobuster
   ```
+ 
+ ## Example 
+ ```
+  python3 conphisher.py -e dan@conphisher.co.uk -u conphisher.co.uk
+  ```
+
