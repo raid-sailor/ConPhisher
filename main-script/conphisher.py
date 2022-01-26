@@ -68,7 +68,6 @@ def whois_ip():
 while True:     
     
     os.system('cls' if os.name == 'nt' else 'clear')
-    print(results.url + results.email)
     print(Fore.CYAN + custom_fig.renderText("ConPhisher") + Style.RESET_ALL)
     print(Fore.CYAN + ("❌ This tool is not intended for malicious purposes ❌") + Style.RESET_ALL)
     print(Fore.CYAN + ("👉 github.com/raid-sailor") + Style.RESET_ALL)
