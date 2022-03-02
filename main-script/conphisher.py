@@ -58,7 +58,7 @@ def netcraft_post():
 def enumeration(): 
 
     print(Fore.BLUE + "Target Enumeration\n" + Style.RESET_ALL)
-    os.system('gobuster dir -q -u' + results.url + '/ -w wordlist.txt -r')
+    os.system('gobuster dir -q -u' + results.url + '/ -w wordlist.txt -r -a "Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.48 Mobile Safari/537.36" --timeout 10s')
 
 def whois_ip():
 
