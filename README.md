@@ -44,7 +44,7 @@ This is an example of how to list things you need to use the software and how to
   ```
 * CD into the folder 
 
-* Clone the repo 
+* Install the requirements using pip
   ```sh
   pip install -r requirements 
   ```
