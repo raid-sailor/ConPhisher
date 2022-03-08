@@ -35,6 +35,19 @@ This is an example of how to list things you need to use the software and how to
   ```sh
   sudo apt-get install gobuster
   ```
+
+### Get started 
+
+* Clone the repo 
+  ```sh
+  git clone https://github.com/raid-sailor/ConPhisher.git
+  ```
+* CD into the folder 
+
+* Clone the repo 
+  ```sh
+  pip install -r requirements 
+  ```
  
  ## Example 
  ```
