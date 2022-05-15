@@ -12,16 +12,12 @@ import argparse
 custom_fig = Figlet(font='graffiti')
 author =  Figlet(font='graceful')
 parser = argparse.ArgumentParser()
-parser.add_argument('-e', action='store', dest='email',
-                    help='Your email address')
 parser.add_argument('-u', action='store', dest='url',
                  
                     help='Target url')
 parser.add_argument('--version', action='version', version='%(prog)s 1.0')
 
 results = parser.parse_args()
-
-
 
 def cookie_check():
 
@@ -40,28 +36,22 @@ def cookie_check():
         except TypeError:
             print("NO URL PROVIDED")
 
-def netcraft_post():
-
-        try:
-            r = requests.post('https://report.netcraft.com/api/v3/report/urls', json={
-            "email": results.email,
-            "urls": [{ "url": "https://" + results.url, "country": "GB" }],
-            })
-
-            print(Fore.BLUE + "Netcraft" + Style.RESET_ALL)
-            print( "\nReported to Netcraft as a malicious with takedown ID: " + r.json()['uuid'])
-            
-        except KeyError:
-            print("\nError! Make sure you entered your email otherwise try again later.\n")
-            pass
-        
 def enumeration(): 
-
+    
     print(Fore.BLUE + "Target Enumeration\n" + Style.RESET_ALL)
     os.system('gobuster dir -q -u' + results.url + '/ -w wordlist.txt -r -a "Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.48 Mobile Safari/537.36" --timeout 10s')
 
-def whois_ip():
+    while True: 
+        enumeration_continue = input("Would you like to continue? ")
+        if enumeration_continue == 'Yes' or enumeration_continue == 'yes':
+                enumeration_new = input("Enter the directory name: ")
+                os.system('gobuster dir -q -u' + results.url + '/' + enumeration_new + '/ -w wordlist.txt -r -a "Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.48 Mobile Safari/537.36" --timeout 10s')
+                break
+        else: 
+            continue
 
+def whois_ip():
+    
     try: 
         domainip = socket.gethostbyname(results.url)
         c = Client()
@@ -81,27 +71,18 @@ while True:
     print(Fore.CYAN + custom_fig.renderText("ConPhisher") + Style.RESET_ALL)
     print(Fore.CYAN + ("❌ This tool is not intended for malicious purposes ❌") + Style.RESET_ALL)
     print(Fore.CYAN + ("👉 github.com/raid-sailor") + Style.RESET_ALL)
-    menu_input = input("\nThis will report the site for a takedown with Netcraft. Do you want to continue? ") 
-
-    if menu_input == "Yes" or menu_input == "yes": 
-        os.system('cls' if os.name == 'nt' else 'clear')
-        print(Fore.CYAN + custom_fig.renderText("ConPhisher") + Style.RESET_ALL)
-        print(Fore.CYAN + ("❌ This tool is not intended for malicious purposes ❌") + Style.RESET_ALL)
-        print(Fore.CYAN + ("👉 github.com/raid-sailor") + Style.RESET_ALL)
-        print("\n====================================================\n")
-        cookie_check()
-        print("\n====================================================\n")
-        whois_ip()
-        print("\n====================================================\n")
-        netcraft_post()
-        input("Press enter to continue to enumeration")
-        print("\n====================================================\n")
-        enumeration()
-        sys.exit()
-    elif menu_input == "No" or menu_input == "no": 
-        sys.exit()
-    else: 
-        input("\nIncorrect option picked, press enter to try again.")
-
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print(Fore.CYAN + custom_fig.renderText("ConPhisher") + Style.RESET_ALL)
+    print(Fore.CYAN + ("❌ This tool is not intended for malicious purposes ❌") + Style.RESET_ALL)
+    print(Fore.CYAN + ("👉 github.com/raid-sailor") + Style.RESET_ALL)
+    print("\n====================================================\n")
+    cookie_check()
+    print("\n====================================================\n")
+    whois_ip()
+    print("\n====================================================\n")
+    input("Press enter to continue to enumeration")
+    print("\n====================================================\n")
+    enumeration()
+    sys.exit()
 
 
